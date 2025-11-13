@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
 function AddUser({ onUserAdded }) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
@@ -29,8 +30,8 @@ function AddUser({ onUserAdded }) {
   };
 
   return (
-    <div style={{ padding: "20px", border: "1px solid #ddd", marginBottom: "20px" }}>
-      <h3>Agregar Usuario</h3>
+    <div style={{ padding: "20px", border: "1px solid #ddd", marginBottom: "20px", paddingRight: "40px" }}>
+      <h3>AGREGAR USUARIO</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre:</label>
@@ -43,8 +44,8 @@ function AddUser({ onUserAdded }) {
         <div>
           <label>Teléfono:</label>
           <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)} />
-        </div>
-        <button type="submit">Guardar</button>
+        </div >
+        <button className="logout-btn" type="submit">Guardar</button>
       </form>
       {mensaje && <p>{mensaje}</p>}
     </div>

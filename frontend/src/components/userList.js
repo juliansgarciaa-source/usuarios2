@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+
+
 function UserList({ refresh }) {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
@@ -42,71 +44,74 @@ function UserList({ refresh }) {
       .catch(err => console.error("Error al actualizar usuario:", err));
   };
 
-  return (
-    <div style={{ marginTop: "20px" }}>
-      <h3>Lista de Usuarios</h3>
+return (
+  <div className="user-container">
+    <h3>Lista de Usuarios</h3>
 
-      {users.length === 0 ? (
-        <p>No hay usuarios registrados.</p>
-      ) : (
-        <table border="1" cellPadding="10" style={{ width: "100%", textAlign: "left" }}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Acciones</th>
+    {users.length === 0 ? (
+      <p>No hay usuarios registrados.</p>
+    ) : (
+      <table className="user-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(u => (
+            <tr key={u.id}>
+              <td>{u.id}</td>
+              <td>{u.nombre}</td>
+              <td>{u.email}</td>
+              <td>{u.telefono}</td>
+              <td>
+                <button onClick={() => handleEdit(u)}>Editar</button>
+                <button onClick={() => handleDelete(u.id)}>Eliminar</button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {users.map(u => (
-              <tr key={u.id}>
-                <td>{u.id}</td>
-                <td>{u.nombre}</td>
-                <td>{u.email}</td>
-                <td>{u.telefono}</td>
-                <td>
-                  <button onClick={() => handleEdit(u)}>Editar</button>
-                  <button onClick={() => handleDelete(u.id)}>Eliminar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
+    )}
 
-      {editingUser && (
-        <div style={{ marginTop: "20px", padding: "10px", border: "1px solid #ccc" }}>
-          <h3>Editar Usuario</h3>
-          <form onSubmit={handleUpdate}>
-            <input
-              type="text"
-              placeholder="Nombre"
-              value={form.nombre}
-              onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Teléfono"
-              value={form.telefono}
-              onChange={(e) => setForm({ ...form, telefono: e.target.value })}
-            />
-            <button type="submit">Guardar cambios</button>
-            <button type="button" onClick={() => setEditingUser(null)}>Cancelar</button>
-          </form>
-        </div>
-      )}
-    </div>
-  );
+    {editingUser && (
+      <div className="edit-form">
+        <h3>Editar Usuario</h3>
+        <form onSubmit={handleUpdate}>
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={form.nombre}
+            onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Teléfono"
+            value={form.telefono}
+            onChange={(e) => setForm({ ...form, telefono: e.target.value })}
+          />
+          <button type="submit">Guardar cambios</button>
+          <button type="button" onClick={() => setEditingUser(null)}>
+            Cancelar
+          </button>
+        </form>
+      </div>
+    )}
+  </div>
+);
+
 }
 
 export default UserList;
